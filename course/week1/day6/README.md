@@ -32,19 +32,16 @@ This lesson turns everything you’ve built into an **executive-friendly dashboa
 
 ```mermaid
 flowchart TD
-    A[User Question in Streamlit] --> B{Which Tab?}
-    B -->|🔀 Router| C[build_router_app]
-    C -->|Intent + Confidence| D[Co-bot Node (BI/Product/Email/Analyst)]
+    A[User question in Streamlit] --> B{Which tab}
+    B -->|Router| C[build_router_app]
+    C --> D[Co-bot node]
     D --> E[Answer back to Streamlit]
 
-    B -->|📊 BI| F[exec_bi(question)]
-    F --> G[Rows (JSON) + Summary]
+    B -->|BI| F[exec_bi]
+    F --> G[Rows and summary]
     G --> H[Table in Streamlit]
     G --> I[Summary text in Streamlit]
 
-    style A fill:#222,color:#fff,stroke:#555
-    style H fill:#222,color:#fff,stroke:#555
-    style I fill:#222,color:#fff,stroke:#555
 ```
 
 **How to read this:**
