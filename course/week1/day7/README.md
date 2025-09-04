@@ -1,80 +1,137 @@
 # 📘 Week 1 — Day 7
+
 **Topic:** Visualizing BI Outputs with Plotly + Streamlit
 
 ---
 
 ## 🎯 Learning Objectives
-- Convert **BI JSON rows** into **Plotly** charts (bar / line / scatter).
-- Select sensible defaults based on the **template** and **columns** returned.
-- Wire charts into a **Streamlit** dashboard alongside tables and summaries.
-- Keep the stack clean: **no seaborn**, Plotly only; dark theme for exec polish.
+
+* Learn how to **turn BI JSON rows into charts** using Plotly.
+* Decide which **chart type** fits the question (bar/line/scatter).
+* Add charts to your **Streamlit dashboard** next to BI tables and summaries.
+* Keep visuals **professional and consistent** with a dark theme.
 
 ---
 
-## 🗂 Files in This Lesson
-- `chart_utils.py` — Helpers that convert BI `rows` → Plotly figures.
-- `bi_charts.py` — One call that runs the **Day 5 BI Expert** and returns `df`, `figure`, and summary.
-- `dashboard_charts.py` — A Streamlit app (Day 6 style) that renders **tables + charts**.
-- (Optional) `style.css` — Reuse Day 6 CSS if you want the same dark theme.
+## 🗂 What’s Included
+
+* `chart_utils.py` → helpers that convert BI `rows` → Plotly figures
+* `bi_charts.py` → runs the BI Expert, returns `DataFrame`, `Figure`, and summary
+* `dashboard_charts.py` → a Streamlit app with **tables + charts**
+* (Optional) `style.css` → reuse your Day 6 dark theme
 
 > Re-uses:
-> - Day 5 runner: `course/week1/day5/bi_templates_runner.py` (`exec_bi`)
+>
+> * Day 5 BI runner: `exec_bi`
 
 ---
 
-## 🧩 Prereqs
-- `.env` already set (from earlier days).
-- Install:
+## 🧩 Prerequisites
+
+* `.env` file already set up from earlier days
+* Required installs (if not already installed):
+
   ```bash
   pip install plotly streamlit pandas
-▶️ Run
-From repo root:
+  ```
 
-bash
-Copy code
-cd course/week1/day7
-streamlit run dashboard_charts.py
-🧠 Design Notes
-We map well-known templates → chart types:
+---
 
-avg_p1_by_segment → bar chart (x=segment, y=avg_p1)
+## ▶️ How to Run (Step-by-Step)
 
-avg_p1_by_member_rating → bar (x=member_rating, y=avg_p1)
+1. **Go to your Day 7 folder**
 
-count_by_member_rating → bar (x=member_rating, y=n)
+   ```bash
+   cd ai-marketing-agents-course/course/week1/day7
+   ```
 
-top_purchase_frequency_by_segment → bar (x=segment, y=max_purchase_frequency)
+2. **Start the dashboard**
 
-If an unexpected template/columns appear, we auto-detect numeric columns and plot a generic bar.
+   ```bash
+   streamlit run dashboard_charts.py
+   ```
 
-We don’t hardcode colors; we use Plotly’s template="plotly_dark" for a professional dark style.
+3. **Open in browser**
 
-✅ Deliverables
-Chart utilities ready for reuse in your Day 6 dashboard or any UI.
+   * Go to [http://localhost:8501](http://localhost:8501)
+   * You’ll see a dashboard with tables **and charts**
 
-A charts-enabled Streamlit app that execs can use immediately.
+---
 
-🔜 After Day 7
-Add unit tests for chart generation.
+## 📊 Visual Workflow
 
-Serialize figure specs (e.g., fig.to_json()) for API delivery.
+```mermaid
+flowchart TD
+    A[User asks BI question] --> B[BI Expert (exec_bi)]
+    B --> C[Returns JSON rows + summary]
+    C --> D[chart_utils.py]
+    D --> E[Plotly Chart]
+    C --> F[Pandas DataFrame]
+    E & F --> G[Streamlit Dashboard: Table + Chart + Summary]
 
-Start wiring chart_json back into LangGraph state if you want end-to-end JSON-only UIs.
-✅ Quick Test
-# if needed
-pip install streamlit plotly pandas
+    style A fill:#222,stroke:#555,color:#fff
+    style G fill:#222,stroke:#555,color:#fff
+```
 
-# run
-cd ai-marketing-agents-course/course/week1/day7
-streamlit run dashboard_charts.py
+---
 
+## 🧠 Design Notes (Plain English)
 
-Try BI queries like:
+* **What gets charted?**
 
-“What’s the average p1 by segment for the last 90 days?”
+  * If the template = `avg_p1_by_segment` → bar chart (segment vs avg\_p1)
+  * If template = `count_by_member_rating` → bar chart (member\_rating vs count)
+  * If template is unknown → auto-pick numeric columns and plot a generic bar
 
-“How many users per member rating?”
+* **Theme**
 
-“Top purchase frequency by segment in the last 60 days”
+  * Use `plotly_dark` so visuals match your **Day 6 dashboard**
 
-You’ll see tables + charts + summaries in one view, ready for execs.
+* **Consistency**
+
+  * Every BI query now produces:
+
+    1. **Table** of raw numbers
+    2. **Chart** for fast visual insight
+    3. **Executive summary** in plain text
+
+---
+
+## ✅ Deliverables
+
+By the end of Day 7 you’ll have:
+
+* Chart utilities that turn BI rows into professional visuals
+* A **charts-enabled Streamlit dashboard** ready for executives
+* Consistent dark theme across all BI outputs
+
+---
+
+## 🔬 Quick Test Examples
+
+In the dashboard, try questions like:
+
+* “What’s the average `p1` by segment for the last 90 days?”
+* “How many users per member rating?”
+* “Top purchase frequency by segment in the last 60 days”
+
+You should see:
+
+* A **table** of numbers
+* A **Plotly chart** (bar chart by default)
+* A **summary paragraph**
+
+---
+
+## 🔜 After Day 7
+
+* Add **unit tests** for chart generation (ensure figures render).
+* Export chart specs as JSON (e.g., `fig.to_json()`) for APIs.
+* Start passing `chart_json` into your LangGraph state to make UIs fully **JSON-driven**.
+
+---
+
+✅ At this point, Week 1 covers **data → features → LangGraph → compliance → dashboards with charts**. You’re now presenting results in a way executives can instantly understand.
+
+---
+
