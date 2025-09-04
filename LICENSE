@@ -1,21 +1,45 @@
-MIT License
+Defensive AI Commercial Rights (DACR) License
+Version 1.0
 
-Copyright (c) 2025 Maurice McDonald
+Copyright (c) 2025 Erwin Maurice McDonald
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Permission is hereby granted, free of charge, to any person or organization
+obtaining a copy of this software and associated documentation files
+(the "Software"), to use, copy, modify, merge, publish, and distribute
+copies of the Software, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+1. Commercial Use
+   The Software may be used for commercial purposes, provided that such use
+   complies with the restrictions outlined below.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+2. Restrictions
+   The Software may NOT be used:
+   - To develop, deploy, or support autonomous weapons or weaponized AI systems.
+   - To create surveillance systems intended to oppress or violate human rights.
+   - To exploit labor, vulnerable populations, or users without informed consent.
+   - To train models or systems that intentionally generate harmful,
+     discriminatory, or fraudulent outputs.
+   - In any manner that violates applicable laws or international human rights standards.
+
+3. Attribution
+   The above copyright notice and this license must be included in all copies
+   or substantial portions of the Software.
+
+4. Defensive Clause
+   In the event that a user or organization brings claims, lawsuits, or 
+   challenges against the original authors related to the licensing or ethical 
+   restrictions of this Software, their rights under this license will 
+   immediately terminate.
+
+5. Disclaimer
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
+   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
+   FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
+   AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
+   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+---
+
+This license is part of the DACR initiative, designed to encourage ethical AI
+development and responsible commercial use while defending against misuse.
