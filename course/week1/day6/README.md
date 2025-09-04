@@ -61,3 +61,27 @@ A working Streamlit dashboard with 4 tabs.
 BI tab shows real data tables and exec summaries.
 
 Router tab demonstrates end-to-end orchestration.
+✅ Test Flow
+
+From repo root, install deps if not done:
+
+pip install streamlit pandas anthropic langgraph sqlalchemy python-dotenv plotly tabulate
+
+
+Run dashboard:
+
+cd course/week1/day6
+streamlit run dashboard.py
+
+
+Try:
+
+Router tab → “What’s the average p1 by segment?”
+
+BI tab → “How many users per member rating?”
+
+Product tab → “Which features should we highlight for Segment 2?”
+
+Email tab → “Write a renewal email for high-value buyers.”
+
+Analyst tab → “Summarize Segment 1 behavior.”
