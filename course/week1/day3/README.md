@@ -1,83 +1,58 @@
-# 📘 Week 1 — Day 3
-**Topic:** LangGraph Deep Dive — State, Nodes, and Executable Graphs (Claude-powered)
+# 📘 Week 1 — Day 3  
+**Topic:** LangGraph Deep Dive — State, Nodes, and Executable Graphs (Claude-powered)  
 
 ---
 
-## 🎯 Learning Objectives
-- Define a **typed graph state** that your nodes read/write.
-- Build a production-ready **`segment_analyzer`** node (Claude + strict JSON).
-- Wire a runnable **START → segment_analyzer → END** graph.
-- Pull a **sample preview** from your SQLite feature store (`customer_features`).
-- Expose a clean **CLI** to invoke the graph for any `segment_id`.
+## 🎯 What You’ll Learn Today
+- How to define a **shared “state”** so each step in your graph knows what to expect.  
+- How to create a **Claude-powered analysis node** that returns clean JSON insights.  
+- How to wire up a simple flow: **START → segment_analyzer → END**.  
+- How to preview real data from your SQLite database (`customer_features`).  
+- How to run the graph from the **command line** with different options.  
 
 ---
 
-## 🗂 Files in This Lesson
-- `state_types.py` — Strongly typed LangGraph state for reliability.
-- `segment_analyzer_node.py` — Claude-powered node that creates exec insights.
-- `build_graph.py` — Compiles START → node → END; helper to invoke from code.
-- `run_graph.py` — Command-line runner (`python run_graph.py --segment 2 --limit 50`).
-
-> Re-uses `course/week1/day1/anthropic_client.py` for Claude calls.
-
----
-
-## 🧩 Prereqs
-- Day 2 created `customer_features` in your DB:
-  - Columns: `user_email, p1, member_rating, purchase_frequency, recency_days`
-- `.env` has:
+## 🛠 Prerequisites
+Before starting today:  
+- ✅ Day 2 created a `customer_features` table in your database.  
+  - Columns should be:  
+    `user_email, p1, member_rating, purchase_frequency, recency_days`  
+- ✅ You have a `.env` file with:  
   ```ini
-  ANTHROPIC_API_KEY=your_key
+  ANTHROPIC_API_KEY=your_key_here
   CLAUDE_MODEL=claude-3-5-sonnet-latest
   DATABASE_URL=sqlite:///data/leads_scored_segmentation.db
-🧑‍💻 Install (if needed)
-bash
-Copy code
-pip install langgraph pandas sqlalchemy python-dotenv
-▶️ Run
-bash
-Copy code
-cd ai-marketing-agents-course/course/week1/day3
+````
 
-# Analyze segment 2 with a 50-row preview
-python run_graph.py --segment 2 --limit 50
+* ✅ You have Python installed with these packages:
 
-# Try a different segment
-python run_graph.py --segment 0 --limit 25
-Expected console output:
-
-RESPONSE — 3–5 sentence exec summary
-
-INSIGHTS — 4–6 bullets
-
-SUMMARY TABLE — compact JSON (metric/value)
-
-🧠 Why This Matters
-Typed state makes your graphs predictable and easier to test.
-
-A single node can become a reusable building block for routers and multi-agent flows.
-
-Using DB previews keeps your prompts grounded without shipping full tables to the model.
-
-✅ Deliverables
-A runnable graph that turns DB features into exec-ready insights.
-
-A CLI pattern you can reuse for unit tests and automation.
-
-🔜 Next (Day 4 Preview)
-Build a Router Node that classifies user intent → BI / Product / Email / Analyst / Other.
-
-Add conditional edges to route questions automatically.
-
-python
-Copy code
+  ```bash
+  pip install langgraph pandas sqlalchemy python-dotenv
+  ```
 
 ---
 
-## 🧩 `course/week1/day3/state_types.py`
+## 📂 Files for Today
+
+Today you’ll be working with four files in `course/week1/day3/`:
+
+1. **`state_types.py`** → Defines the “shape” of data your graph uses.
+2. **`segment_analyzer_node.py`** → The Claude-powered node that generates insights.
+3. **`build_graph.py`** → Connects the pieces into a flow: START → Node → END.
+4. **`run_graph.py`** → A simple command-line runner so you can try it out.
+
+---
+
+## 🧩 Step 1: Define the State
+
+Think of **state** like a form everyone has to fill out the same way.
+
+* It prevents “surprises” when nodes pass information.
+* It ensures Claude always sends back the fields we need.
+
+Open `state_types.py` and check that it looks like this:
 
 ```python
-# state_types.py
 from typing_extensions import TypedDict
 
 class GraphState(TypedDict):
@@ -85,8 +60,115 @@ class GraphState(TypedDict):
     Canonical state for segment analysis.
     """
     segment_id: int
-    sample_df_json: str   # JSON (records) preview sent to the LLM
-    response: str         # narrative for execs (3-5 sentences)
-    insights: str         # bullet points (\n- delimited string)
-    summary_table: str    # JSON (list of {"metric","value"})
-    chart_json: str       # optional plot spec as JSON (unused today)
+    sample_df_json: str   # JSON preview of DB rows
+    response: str         # executive summary (3-5 sentences)
+    insights: str         # bullet points
+    summary_table: str    # compact JSON (metric/value)
+    chart_json: str       # optional, not used today
+```
+
+---
+
+## 🧩 Step 2: Create the Segment Analyzer Node
+
+This is your Claude-powered step.
+
+* It takes a preview of data from the database.
+* It asks Claude for a **summary, insights, and a table**.
+* It returns everything in a structured format.
+
+(You’ll use the `anthropic_client.py` from Day 1 here.)
+
+---
+
+## 🧩 Step 3: Build the Graph
+
+Your graph is a **flowchart in code**.
+
+* START: you load the data and set up the state.
+* `segment_analyzer`: Claude reads the data and produces insights.
+* END: you collect the output and show results.
+
+This is wired in `build_graph.py`.
+
+---
+
+## 🧩 Step 4: Run the Graph from CLI
+
+Now you’ll run your graph like a little app.
+
+1. Open your terminal.
+2. Navigate to Day 3 folder:
+
+   ```bash
+   cd ai-marketing-agents-course/course/week1/day3
+   ```
+3. Run the graph with a **segment ID** and row limit:
+
+   ```bash
+   python run_graph.py --segment 2 --limit 50
+   ```
+4. Try another one:
+
+   ```bash
+   python run_graph.py --segment 0 --limit 25
+   ```
+
+---
+
+## 📊 Expected Output
+
+When successful, you’ll see three sections in your console:
+
+* **RESPONSE** → 3–5 sentences (executive-style summary).
+* **INSIGHTS** → 4–6 bullet points.
+* **SUMMARY TABLE** → JSON with `metric` and `value` pairs.
+
+Example (simplified):
+
+```text
+RESPONSE
+Segment 2 shows strong purchasing activity with high ratings.
+
+INSIGHTS
+- Most users are repeat buyers
+- Recency trend is improving
+- Strong cluster for retention
+
+SUMMARY TABLE
+[{"metric": "avg_p1", "value": "0.82"},
+ {"metric": "avg_frequency", "value": "3.4"}]
+```
+
+---
+
+## 🧠 Why This Matters
+
+* Typed **state** keeps your graphs predictable and easy to test.
+* The **segment\_analyzer** node is your first reusable building block.
+* Using a **DB preview** keeps prompts grounded (no need to dump the entire table).
+
+---
+
+## ✅ Deliverables
+
+By the end of Day 3 you should have:
+
+* A **typed graph state** (`state_types.py`).
+* A **Claude-powered node** (`segment_analyzer_node.py`).
+* A **graph flow** (`build_graph.py`).
+* A **CLI runner** (`run_graph.py`).
+* A working example with real data flowing end-to-end.
+
+---
+
+## 🔜 Next (Day 4 Preview)
+
+Tomorrow you’ll:
+
+* Build a **Router Node** that classifies intent.
+* Add conditional edges → route to BI, Product, Email, or Analyst nodes.
+* Start moving toward **multi-agent orchestration**.
+
+```
+
