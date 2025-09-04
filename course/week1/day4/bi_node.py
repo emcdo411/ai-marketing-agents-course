@@ -1,18 +1,11 @@
 # bi_node.py
 """
-Day 4 BI node (replacement):
-Delegates BI questions to the Day 5 template-driven runner (exec_bi),
-which selects an approved SQL template, binds params safely, runs it,
-and returns rows + a concise executive explanation.
-
-Requires:
-  - course/week1/day5/bi_templates_runner.py (exec_bi)
-  - DATABASE_URL in .env
-  - Anthropic API vars for Claude explanation
+Day 4 BI node (compact JSON version):
+Uses Day 5's exec_bi() to run safe, parameterized SQL via templates.
+Returns structured JSON (rows, metadata, explanation) instead of one big string.
 """
 
 import json
-import os
 import sys
 from typing import Dict, Any
 
@@ -31,31 +24,23 @@ def bi_node(state: RouterState) -> Dict[str, Any]:
     Expects in state:
       - question: str
 
-    Returns:
-      - answer: str (human-readable)
-      - rows_json: str (JSON array of result rows)
+    Returns structured dict:
+      - intent: "BI"
       - template: str
       - params: dict
       - latency_s: float
+      - rows: list of dicts
+      - explanation: str
     """
     question = state.get("question", "").strip() or "What's the average p1 by segment for the last 90 days?"
 
     result = exec_bi(question)
-    rows_json = json.dumps(result.get("rows", []), ensure_ascii=False)
-
-    answer = (
-        "BI — Template-driven result\n"
-        f"Template: {result.get('template')}\n"
-        f"Params: {json.dumps(result.get('params', {}), ensure_ascii=False)}\n"
-        f"Latency (s): {result.get('latency_s')}\n\n"
-        f"Rows (preview): {rows_json[:800]}\n\n"
-        f"{result.get('explanation','')}"
-    )
 
     return {
-        "answer": answer,
-        "rows_json": rows_json,
+        "intent": "BI",
         "template": result.get("template"),
         "params": result.get("params"),
         "latency_s": result.get("latency_s"),
+        "rows": result.get("rows", []),
+        "explanation": result.get("explanation", ""),
     }
