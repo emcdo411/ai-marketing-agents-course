@@ -1,25 +1,32 @@
-# 🚀 Senior Generative AI Data Scientist Roadmap
+# 🚀 Senior Generative AI Data Scientist Roadmap  
 
-*8-Week Applied Course Using `ai-marketing-agents` Project*
+*8-Week Applied Course Using `ai-marketing-agents` Project*  
 
 ---
 
-## 📑 Table of Contents
+## 📛 Tech Stack & Values  
 
-* [🎯 Why This Matters](#-why-this-matters)
-* [📅 8-Week Course Outline](#-8-week-course-outline)
+### 🔧 Core Technologies  
+![Python](https://img.shields.io/badge/Python-3.10+-blue?logo=python&logoColor=white)  
+![LangChain](https://img.shields.io/badge/LangChain-Framework-green?logo=chainlink&logoColor=white)  
+![LangGraph](https://img.shields.io/badge/LangGraph-Orchestration-orange)  
+![Claude Code](https://img.shields.io/badge/Claude_Code-Anthropic-purple)  
+![Anthropic API](https://img.shields.io/badge/Anthropic-API-lightgrey)  
+![Streamlit](https://img.shields.io/badge/Streamlit-Dashboards-FF4B4B?logo=streamlit&logoColor=white)  
+![Plotly](https://img.shields.io/badge/Plotly-Visualizations-3F4F75?logo=plotly&logoColor=white)  
+![SQLite](https://img.shields.io/badge/SQLite-Database-07405E?logo=sqlite&logoColor=white)  
+![Postgres](https://img.shields.io/badge/Postgres-Database-4169E1?logo=postgresql&logoColor=white)  
+![scikit-learn](https://img.shields.io/badge/scikit--learn-ML-orange?logo=scikit-learn&logoColor=white)  
+![pandas](https://img.shields.io/badge/pandas-Data_Analysis-150458?logo=pandas&logoColor=white)  
+![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-ORM-red)  
+![dotenv](https://img.shields.io/badge/python--dotenv-Config-yellowgreen)  
 
-  * [Week 1: Data Foundations for AI Systems](#week-1-data-foundations-for-ai-systems)
-  * [Week 2: Segmentation & Classical ML for Business AI](#week-2-segmentation--classical-ml-for-business-ai)
-  * [Week 3: Agentic Workflows 101 (LangGraph + Claude)](#week-3-agentic-workflows-101-langgraph--claude)
-  * [Week 4: Prompt Engineering with Claude Code](#week-4-prompt-engineering-with-claude-code)
-  * [Week 5: Multi-Agent Collaboration with LangChain & LangGraph](#week-5-multi-agent-collaboration-with-langchain--langgraph)
-  * [Week 6: Visualization & Executive Dashboards](#week-6-visualization--executive-dashboards)
-  * [Week 7: Compliance, Ethics & Enterprise AI](#week-7-compliance-ethics--enterprise-ai)
-  * [Week 8: Capstone & Career Readiness](#week-8-capstone--career-readiness)
-* [🛠 Skills You’ll Gain by Week 8](#-skills-youll-gain-by-week-8)
-* [🏁 Next Steps After This Course](#-next-steps-after-this-course)
-* [💼 Career Positioning](#-career-positioning)
+### 🌍 Values & Positioning  
+![License: DACR](https://img.shields.io/badge/License-DACR-blue.svg)  
+![Ethical AI](https://img.shields.io/badge/Ethical_AI-Responsible_Use-green)  
+![Compliance](https://img.shields.io/badge/Compliance-GDPR%2FPrivacy-orange)  
+![Veterans in Tech](https://img.shields.io/badge/Veterans_in_Tech-Proud_Supporter-lightblue)  
+![Diversity & Inclusion](https://img.shields.io/badge/DEI-Commitment-purple)  
 
 ---
 
