@@ -1,54 +1,61 @@
 # bi_node.py
 """
-BI co-bot:
-- Runs a SAFE, predefined aggregation on customer_features
-- Asks Claude to explain results in 3-4 concise sentences
+Day 4 BI node (replacement):
+Delegates BI questions to the Day 5 template-driven runner (exec_bi),
+which selects an approved SQL template, binds params safely, runs it,
+and returns rows + a concise executive explanation.
+
+Requires:
+  - course/week1/day5/bi_templates_runner.py (exec_bi)
+  - DATABASE_URL in .env
+  - Anthropic API vars for Claude explanation
 """
+
 import json
 import os
 import sys
 from typing import Dict, Any
 
-import pandas as pd
-from sqlalchemy import create_engine, text
-from dotenv import load_dotenv
-
-load_dotenv()
-DB_URL = os.getenv("DATABASE_URL", "sqlite:///data/leads_scored_segmentation.db")
-
+# Ensure repo root on path (so Day 5 modules resolve when run from Day 4)
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[4]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from course.week1.day1.anthropic_client import ClaudeClient
+from course.week1.day5.bi_templates_runner import exec_bi
 from router_state import RouterState
+
 
 def bi_node(state: RouterState) -> Dict[str, Any]:
     """
-    Example BI: average p1 by member_rating over the entire table (safe).
-    Extend with date filters in Day 5.
-    """
-    eng = create_engine(DB_URL, future=True)
-    with eng.connect() as c:
-        df = pd.read_sql(text("""
-            SELECT member_rating, AVG(p1) AS avg_p1, COUNT(*) AS n
-            FROM customer_features
-            GROUP BY member_rating
-            ORDER BY member_rating DESC
-        """), c)
+    Expects in state:
+      - question: str
 
-    payload = df.to_dict(orient="records")
-    client = ClaudeClient()
-    explain = client.json_call(
-        system="You are a concise executive analyst. Output plain text (no JSON).",
-        user=f"Explain these BI results in <= 4 sentences:\n{json.dumps(payload)}",
-        max_tokens=300
-    )
+    Returns:
+      - answer: str (human-readable)
+      - rows_json: str (JSON array of result rows)
+      - template: str
+      - params: dict
+      - latency_s: float
+    """
+    question = state.get("question", "").strip() or "What's the average p1 by segment for the last 90 days?"
+
+    result = exec_bi(question)
+    rows_json = json.dumps(result.get("rows", []), ensure_ascii=False)
 
     answer = (
-        "BI — Average p1 by member_rating\n"
-        f"Data: {json.dumps(payload, ensure_ascii=False)}\n\n"
-        f"{explain}"
+        "BI — Template-driven result\n"
+        f"Template: {result.get('template')}\n"
+        f"Params: {json.dumps(result.get('params', {}), ensure_ascii=False)}\n"
+        f"Latency (s): {result.get('latency_s')}\n\n"
+        f"Rows (preview): {rows_json[:800]}\n\n"
+        f"{result.get('explanation','')}"
     )
-    return {"answer": answer}
+
+    return {
+        "answer": answer,
+        "rows_json": rows_json,
+        "template": result.get("template"),
+        "params": result.get("params"),
+        "latency_s": result.get("latency_s"),
+    }
