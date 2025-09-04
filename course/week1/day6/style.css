@@ -1,0 +1,18 @@
+/* Day 6 Streamlit custom dark theme */
+body, .stApp {
+    background-color: #121212;
+    color: #E0E0E0;
+    font-family: "Segoe UI", Roboto, sans-serif;
+}
+
+h1, h2, h3, h4 {
+    color: #BB86FC;
+}
+
+.stDataFrame {
+    background-color: #1E1E1E !important;
+}
+
+.css-18ni7ap {
+    background-color: #1E1E1E !important;
+}
