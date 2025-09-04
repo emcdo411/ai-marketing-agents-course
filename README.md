@@ -154,10 +154,7 @@ flowchart TD
     H --> I[Career: Senior Generative AI Data Scientist]
 ```
 
----
+## License
+This project is licensed under the Defensive AI Commercial Rights (DACR) License.  
+See the [LICENSE](./LICENSE) file for details.
 
-👉 Place this as your **top-level README.md**. It immediately signals to recruiters and hiring managers that you’ve built **enterprise-grade Claude Code + LangGraph systems** while documenting an 8-week transformation roadmap.
-
----
-
-Would you like me to also generate a **syllabus.md** file with detailed **weekly labs and exercises** (step-by-step tasks with Claude Code + LangGraph) so your repo has both a README for recruiters and a syllabus for learners?
