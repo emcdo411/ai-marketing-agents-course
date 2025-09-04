@@ -62,15 +62,16 @@
 
 ```mermaid
 flowchart TD
-    A[User asks BI question] --> B[BI Expert (exec_bi)]
-    B --> C[Returns JSON rows + summary]
-    C --> D[chart_utils.py]
-    D --> E[Plotly Chart]
-    C --> F[Pandas DataFrame]
-    E & F --> G[Streamlit Dashboard: Table + Chart + Summary]
+  A[User asks BI question] --> B[BI Expert]
+  B --> C[JSON rows and summary]
+  C --> D[Chart utils]
+  D --> E[Plotly chart]
+  C --> F[Pandas DataFrame]
+  E --> G[Streamlit dashboard: chart]
+  F --> H[Streamlit dashboard: table]
+  G --> I[Executive summary shown]
+  H --> I
 
-    style A fill:#222,stroke:#555,color:#fff
-    style G fill:#222,stroke:#555,color:#fff
 ```
 
 ---
