@@ -60,3 +60,21 @@ Add unit tests for chart generation.
 Serialize figure specs (e.g., fig.to_json()) for API delivery.
 
 Start wiring chart_json back into LangGraph state if you want end-to-end JSON-only UIs.
+✅ Quick Test
+# if needed
+pip install streamlit plotly pandas
+
+# run
+cd ai-marketing-agents-course/course/week1/day7
+streamlit run dashboard_charts.py
+
+
+Try BI queries like:
+
+“What’s the average p1 by segment for the last 90 days?”
+
+“How many users per member rating?”
+
+“Top purchase frequency by segment in the last 60 days”
+
+You’ll see tables + charts + summaries in one view, ready for execs.
