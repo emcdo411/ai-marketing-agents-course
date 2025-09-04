@@ -1,0 +1,9 @@
+user_email,product_id,ts
+alice@example.com,P001,2024-09-01T10:30:00Z
+alice@example.com,P002,2024-09-15T14:00:00Z
+bob@example.com,P003,2024-06-21T09:00:00Z
+carla@example.com,P004,2024-07-01T16:00:00Z
+carla@example.com,P005,2024-08-11T11:15:00Z
+eva@example.com,P006,2024-09-10T08:45:00Z
+eva@example.com,P007,2024-09-20T13:30:00Z
+eva@example.com,P008,2024-09-28T19:00:00Z
